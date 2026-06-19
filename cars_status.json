@@ -3,7 +3,10 @@
         "name": "جيمس دينالي ",
         "model": "2021",
         "color": "أسود",
-        "category": "جيب",
+        "categories": [
+            "جيب",
+            "VIP"
+        ],
         "daily_price": "50.00",
         "status": "متاحة",
         "image": "images1.jpg"
@@ -12,7 +15,10 @@
         "name": "هونداي النترا",
         "model": "2022",
         "color": "كحلي",
-        "category": "سياحية",
+        "categories": [
+            "سياحية",
+            "عائلية"
+        ],
         "daily_price": "40.00",
         "status": "مؤجرة",
         "image": "images2.jpg"
