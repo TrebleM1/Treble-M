@@ -12,6 +12,7 @@
             --primary: #2563eb;
             --primary-hover: #1d4ed8;
             --success: #10b981;
+            --danger: #ef4444;
             --dark: #0f172a;
             --text-main: #334155;
             --bg-main: #f8fafc;
@@ -22,95 +23,39 @@
             --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
 
-        body { 
-            font-family: 'Cairo', sans-serif; 
-            background-color: var(--bg-main); 
-            color: var(--text-main);
-            margin: 0; 
-            padding: 0;
-        }
-
-        .navbar {
-            background-color: var(--dark);
-            color: white;
-            padding: 25px 20px;
-            text-align: center;
-            box-shadow: var(--shadow);
-        }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-main); color: var(--text-main); margin: 0; padding: 0; }
+        .navbar { background-color: var(--dark); color: white; padding: 25px 20px; text-align: center; box-shadow: var(--shadow); }
         .navbar h1 { margin: 0; font-size: 32px; font-weight: 900; }
         .navbar p { margin: 5px 0 0 0; font-size: 14px; color: #94a3b8; }
-
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-
-        .filter-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 20px;
-            margin-bottom: 35px;
-            box-shadow: var(--shadow);
-        }
+        
+        .filter-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; margin-bottom: 35px; box-shadow: var(--shadow); }
         .filter-title { font-weight: 700; margin-bottom: 15px; color: var(--dark); }
         .filter-grid { display: flex; flex-wrap: wrap; gap: 12px; }
-        .filter-btn { 
-            background: #e2e8f0; color: var(--text-main); border: none; 
-            padding: 8px 18px; border-radius: 30px; font-weight: 600; 
-            cursor: pointer; transition: all 0.2s ease; 
-            font-family: 'Cairo', sans-serif;
-        }
+        .filter-btn { background: #e2e8f0; color: var(--text-main); border: none; padding: 8px 18px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: 'Cairo', sans-serif; }
         .filter-btn.active { background: var(--primary); color: white; }
 
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-        }
-        .car-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-        }
+        .showcase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        .car-card { background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: all 0.3s ease; }
         .car-card:hover { transform: translateY(-6px); }
         
-        .car-image-container {
-            width: 100%; height: 200px; background-color: #cbd5e1;
-            position: relative; overflow: hidden;
-        }
+        .car-image-container { width: 100%; height: 200px; background-color: #cbd5e1; position: relative; overflow: hidden; }
         .car-image-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        .status-tag {
-            position: absolute; top: 15px; right: 15px; padding: 6px 14px;
-            border-radius: 20px; font-size: 12px; font-weight: 700; color: white;
-        }
+        .status-tag { position: absolute; top: 15px; right: 15px; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; color: white; }
         .status-available { background-color: var(--success); }
-        .status-rented { background-color: #ef4444; }
+        .status-rented { background-color: var(--danger); }
 
         .car-content { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .car-name { font-size: 22px; font-weight: 700; color: var(--dark); margin: 0 0 10px 0; }
         .car-meta { font-size: 13px; color: #64748b; margin-bottom: 15px; font-weight: 600; }
-        
-        .cat-badge {
-            display: inline-block; background: #eff6ff; color: #1e40af;
-            padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; margin-left: 5px;
-        }
+        .cat-badge { display: inline-block; background: #eff6ff; color: #1e40af; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; margin-left: 5px; }
 
-        .price-wrapper {
-            background: #f8fafc; border-radius: var(--radius-md);
-            padding: 15px; margin-bottom: 20px; border: 1px solid var(--border-color);
-        }
+        .price-wrapper { background: #f8fafc; border-radius: var(--radius-md); padding: 15px; margin-bottom: 20px; border: 1px solid var(--border-color); }
         .price-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: #475569; }
         .price-value { font-weight: 700; color: #065f46; font-size: 14px; }
 
-        .btn-action-rent {
-            display: block; text-align: center; background: var(--primary); color: white;
-            padding: 12px; border-radius: var(--radius-md); text-decoration: none; font-weight: 700;
-            font-size: 15px; transition: var(--primary-hover) 0.2s;
-        }
+        .btn-action-rent { display: block; text-align: center; background: var(--primary); color: white; padding: 12px; border-radius: var(--radius-md); text-decoration: none; font-weight: 700; font-size: 15px; }
         .btn-action-rent:hover { background: var(--primary-hover); }
     </style>
 </head>
@@ -122,8 +67,6 @@
 </div>
 
 <div class="container">
-
-    <!-- أزرار تصفية الفئات السريعة للزبون -->
     <div class="filter-section">
         <div class="filter-title">🔍 اختر الفئة لتصفية السيارات:</div>
         <div class="filter-grid">
@@ -135,53 +78,61 @@
         </div>
     </div>
 
-    <!-- شبكة عرض السيارات المعروضة للزبائن -->
     <div class="showcase-grid" id="carsGrid">
-        
-        <!-- سيارة رقم 1: سيارة سياحية تجريبية (قم بتغيير البيانات أو تكرار الكرت بالكامل لباقي السيارات) -->
-        <div class="car-card" data-category="سياحية">
-            <div class="car-image-container">
-                <!-- هنا شارة متاح / أو مؤجر يدوي كبداية -->
-                <span class="status-tag status-available">🟢 متاحة حالياً</span>
-                <img src="images/focus2010.jpg" alt="سيارة شركة MMM Motors">
-            </div>
-            <div class="car-content">
-                <div>
-                    <h2 class="car-name">فورد فوكس تيتانيوم</h2>
-                    <div class="car-meta">
-                        <span>🗓️ الموديل: 2010</span> | <span>🎨 اللون: أسود ملوكي</span>
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <span class="cat-badge">سياحية</span>
-                    </div>
-                    <div class="price-wrapper">
-                        <div class="price-row">
-                            <span>إيجار يومي (أقل من أسبوع):</span>
-                            <span class="price-value">$35.00</span>
-                        </div>
-                        <div class="price-row">
-                            <span>إيجار أسبوعي / شهري:</span>
-                            <span class="price-value">$30.00 / يومياً</span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <!-- زر الواتساب المباشر للتواصل الفوري مع الإدارة -->
-                    <a href="https://wa.me/9639XXXXXXXX?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20MMM%20Motors%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AD%D8%AC%D8%B2%20%D8%B3%D9%8A%D8%A7%D8%B1%D8%A9%20%D9%81%D9%85%D9%88%D9%82%D8%B9%D9%83%D9%85" target="_blank" class="btn-action-rent">📱 استفسر عن التوفر واحجز الآن</a>
-                </div>
-            </div>
-        </div>
-        <!-- نهاية كرت السيارة 1 -->
-
+        <!-- سيتم توليد كروت السيارات هنا تلقائياً عبر الجافا سكريبت من الملف المرفوع -->
     </div>
 </div>
 
 <script>
-// جافا سكريبت لتشغيل الفلترة الفورية للزبون دون الحاجة لسيرفر أو قاعدة بيانات
+// جلب بيانات السيارات وحالتها تلقائياً من الملف المحدث
+            fetch('cars_status.json?v=' + Date.now())
+        .then(response => response.json())
+        .then(cars => {
+            const grid = document.getElementById('carsGrid');
+            grid.innerHTML = '';
+            
+            cars.forEach(car => {
+                const isAvailable = car.status === 'متاحة' || car.status === 'متاح';
+                const statusClass = isAvailable ? 'status-available' : 'status-rented';
+                const statusText = isAvailable ? '🟢 متاحة حالياً' : '🔴 مؤجرة حالياً';
+                
+                const carHtml = `
+                    <div class="car-card" data-category="${car.category}">
+                        <div class="car-image-container">
+                            <span class="status-tag ${statusClass}">${statusText}</span>
+                            <img src="${car.image || 'images/default.jpg'}" alt="${car.name}">
+                        </div>
+                        <div class="car-content">
+                            <div>
+                                <h2 class="car-name">${car.name}</h2>
+                                <div class="car-meta">
+                                    <span>🗓️ الموديل: ${car.model}</span> | <span>🎨 اللون: ${car.color}</span>
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <span class="cat-badge">${car.category}</span>
+                                </div>
+                                <div class="price-wrapper">
+                                    <div class="price-row">
+                                        <span>إيجار يومي:</span>
+                                        <span class="price-value">$${car.daily_price}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="https://wa.me/9639XXXXXXXX?text=مرحباً%20MMM%20Motors،%20أود%20الاستفسار%20عن%20حجز%20سيارة%20${encodeURIComponent(car.name)}" target="_blank" class="btn-action-rent">📱 استفسر واحجز عبر واتساب</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += carHtml;
+            });
+        }).catch(err => {
+            document.getElementById('carsGrid').innerHTML = '<p style="text-align:center; width:100%;">جاري تحميل أسطول السيارات الفاخر...</p>';
+        });
+
 function filterCars(category, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    
     const cards = document.querySelectorAll('.car-card');
     cards.forEach(card => {
         if(category === 'الكل' || card.getAttribute('data-category') === category) {
