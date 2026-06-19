@@ -49,7 +49,9 @@
         .car-content { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .car-name { font-size: 22px; font-weight: 700; color: var(--dark); margin: 0 0 10px 0; }
         .car-meta { font-size: 13px; color: #64748b; margin-bottom: 15px; font-weight: 600; }
-        .cat-badge { display: inline-block; background: #eff6ff; color: #1e40af; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; margin-left: 5px; }
+        
+        .badges-wrapper { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
+        .cat-badge { display: inline-block; background: #eff6ff; color: #1e40af; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; }
 
         .price-wrapper { background: #f8fafc; border-radius: var(--radius-md); padding: 15px; margin-bottom: 20px; border: 1px solid var(--border-color); }
         .price-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: #475569; }
@@ -74,7 +76,7 @@
             <button class="filter-btn" onclick="filterCars('سياحية', this)">سياحية</button>
             <button class="filter-btn" onclick="filterCars('عائلية', this)">عائلية</button>
             <button class="filter-btn" onclick="filterCars('جيب', this)">جيب</button>
-            <button class="filter-btn" onclick="filterCars('VIP', this)">VIP</button>
+            <button class="filter-btn" onclick="filterCars('VIP', this)">VIP ⭐</button>
         </div>
     </div>
 
@@ -94,13 +96,23 @@ fetch('cars_status.json?v=' + Date.now())
             const statusClass = isAvailable ? 'status-available' : 'status-rented';
             const statusText = isAvailable ? '🟢 متاحة حالياً' : '🔴 مؤجرة حالياً';
             
-            // تجهيز نص الرسالة التلقائي للواتساب باحترافية
-            const companyNumber = "963944532131"; // 👈 ضع رقم شركتك هنا بدون أصفار أو علامة زائد
+            const companyNumber = "9639XXXXXXXX"; // 👈 ضع رقم شركتك الحقيقي هنا
             const messageText = `مرحباً Treble M Motors، أود الاستفسار عن حجز سيارة: (${car.name}) موديل (${car.model})، ذات اللون (${car.color}) المتاحة في موقعكم الإلكتروني.`;
             const whatsappUrl = `https://wa.me/${companyNumber}?text=${encodeURIComponent(messageText)}`;
             
+            // توليد أزرار التصنيفات المتعددة داخل الكرت
+            let badgesHtml = '';
+            if(Array.isArray(car.categories)) {
+                car.categories.forEach(cat => {
+                    badgesHtml += `<span class="cat-badge">${cat}</span>`;
+                });
+            }
+            
+            // تخزين التصنيفات داخل خاصية data-categories مفصولة بـ شَرطة لفلترتها لاحقاً
+            const categoriesAttr = Array.isArray(car.categories) ? car.categories.join('|') : '';
+
             const carHtml = `
-                <div class="car-card" data-category="${car.category}">
+                <div class="car-card" data-categories="${categoriesAttr}">
                     <div class="car-image-container">
                         <span class="status-tag ${statusClass}">${statusText}</span>
                         <img src="${car.image || 'default.jpg'}" onerror="this.src='default.jpg';" alt="${car.name}">
@@ -111,8 +123,8 @@ fetch('cars_status.json?v=' + Date.now())
                             <div class="car-meta">
                                 <span>🗓️ الموديل: ${car.model}</span> | <span>🎨 اللون: ${car.color}</span>
                             </div>
-                            <div style="margin-bottom: 15px;">
-                                <span class="cat-badge">${car.category}</span>
+                            <div class="badges-wrapper">
+                                ${badgesHtml}
                             </div>
                             <div class="price-wrapper">
                                 <div class="price-row">
@@ -138,7 +150,8 @@ function filterCars(category, btn) {
     btn.classList.add('active');
     const cards = document.querySelectorAll('.car-card');
     cards.forEach(card => {
-        if(category === 'الكل' || card.getAttribute('data-category') === category) {
+        const cardCats = card.getAttribute('data-categories').split('|');
+        if(category === 'الكل' || cardCats.includes(category)) {
             card.style.display = 'flex';
         } else {
             card.style.display = 'none';
