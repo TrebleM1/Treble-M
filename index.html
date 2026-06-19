@@ -23,11 +23,12 @@
             --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
 
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-main); color: var(--text-main); margin: 0; padding: 0; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-main); color: var(--text-main); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
         .navbar { background-color: var(--dark); color: white; padding: 25px 20px; text-align: center; box-shadow: var(--shadow); }
         .navbar h1 { margin: 0; font-size: 32px; font-weight: 900; }
         .navbar p { margin: 5px 0 0 0; font-size: 14px; color: #94a3b8; }
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; flex-grow: 1; }
         
         .filter-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; margin-bottom: 35px; box-shadow: var(--shadow); }
         .filter-title { font-weight: 700; margin-bottom: 15px; color: var(--dark); }
@@ -53,12 +54,20 @@
         .badges-wrapper { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
         .cat-badge { display: inline-block; background: #eff6ff; color: #1e40af; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; }
 
-        .price-wrapper { background: #f8fafc; border-radius: var(--radius-md); padding: 15px; margin-bottom: 20px; border: 1px solid var(--border-color); }
-        .price-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: #475569; }
-        .price-value { font-weight: 700; color: #065f46; font-size: 14px; }
+        .price-table { background: #f8fafc; border-radius: var(--radius-md); padding: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); }
+        .price-row { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; color: #475569; border-bottom: 1px dashed #e2e8f0; }
+        .price-row:last-child { border-bottom: none; }
+        .price-value { font-weight: 700; color: #0f172a; font-size: 14px; }
 
         .btn-action-rent { display: block; text-align: center; background: var(--primary); color: white; padding: 12px; border-radius: var(--radius-md); text-decoration: none; font-weight: 700; font-size: 15px; transition: background 0.2s; }
         .btn-action-rent:hover { background: var(--primary-hover); }
+
+        /* تسيق رسالة الفوتر الحديثة واللافتة */
+        .company-footer { background-color: var(--dark); color: white; padding: 35px 20px; text-align: center; margin-top: 60px; border-top: 4px solid var(--primary); box-shadow: 0 -10px 15px -3px rgba(0, 0, 0, 0.05); }
+        .footer-card { max-width: 800px; margin: 0 auto; background: rgba(255, 255, 255, 0.03); padding: 20px; border-radius: var(--radius-md); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .footer-message { font-size: 17px; font-weight: 600; line-height: 1.8; margin: 0 0 12px 0; color: #f1f5f9; }
+        .footer-location { font-size: 14px; color: #38bdf8; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .footer-brand { font-size: 13px; color: #94a3b8; margin-top: 15px; letter-spacing: 1px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -84,6 +93,18 @@
         </div>
 </div>
 
+<div class="company-footer">
+    <div class="footer-card">
+        <p class="footer-message">✨ لتستفيدوا من الخصومات الحصرية الحالية، تفضلوا بزيارة مقر الشركة الرسمي.</p>
+        <div class="footer-location">
+            📍 المزة - فيلات غربية - جانب فلان
+        </div>
+        <div class="footer-brand">
+            TREBLE M MOTORS ترحب بكم دائماً
+        </div>
+    </div>
+</div>
+
 <script>
 fetch('cars_status.json?v=' + Date.now())
     .then(response => response.json())
@@ -97,10 +118,9 @@ fetch('cars_status.json?v=' + Date.now())
             const statusText = isAvailable ? '🟢 متاحة حالياً' : '🔴 مؤجرة حالياً';
             
             const companyNumber = "963944532131"; // 👈 ضع رقم شركتك الحقيقي هنا
-            const messageText = `مرحباً Treble M Motors، أود الاستفسار عن حجز سيارة: (${car.name}) موديل (${car.model})، ذات اللون (${car.color}) المتاحة في موقعكم الإلكتروني.`;
+            const messageText = `مرحباً Treble M Motors، أود الاستفسار عن تفاصيل وحجز سيارة: (${car.name}) موديل (${car.model}).`;
             const whatsappUrl = `https://wa.me/${companyNumber}?text=${encodeURIComponent(messageText)}`;
             
-            // توليد أزرار التصنيفات المتعددة داخل الكرت
             let badgesHtml = '';
             if(Array.isArray(car.categories)) {
                 car.categories.forEach(cat => {
@@ -108,7 +128,6 @@ fetch('cars_status.json?v=' + Date.now())
                 });
             }
             
-            // تخزين التصنيفات داخل خاصية data-categories مفصولة بـ شَرطة لفلترتها لاحقاً
             const categoriesAttr = Array.isArray(car.categories) ? car.categories.join('|') : '';
 
             const carHtml = `
@@ -126,10 +145,19 @@ fetch('cars_status.json?v=' + Date.now())
                             <div class="badges-wrapper">
                                 ${badgesHtml}
                             </div>
-                            <div class="price-wrapper">
+                            
+                            <div class="price-table">
                                 <div class="price-row">
-                                    <span>إيجار يومي:</span>
+                                    <span>💰 إيجار يومي:</span>
                                     <span class="price-value">$${car.daily_price}</span>
+                                </div>
+                                <div class="price-row">
+                                    <span>📅 إيجار أسبوعي:</span>
+                                    <span class="price-value">$${car.weekly_price}</span>
+                                </div>
+                                <div class="price-row">
+                                    <span>🏢 إيجار شهري:</span>
+                                    <span class="price-value">$${car.monthly_price}</span>
                                 </div>
                             </div>
                         </div>
