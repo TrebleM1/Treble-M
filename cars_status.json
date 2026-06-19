@@ -7,5 +7,14 @@
         "daily_price": "50.00",
         "status": "متاحة",
         "image": "images\/1.jpg"
+    },
+    {
+        "name": "هونداي النترا",
+        "model": "2022",
+        "color": "كحلي",
+        "category": "سياحية",
+        "daily_price": "40.00",
+        "status": "متاحة",
+        "image": "images\/2.jpg"
     }
 ]
