@@ -55,7 +55,7 @@
         .price-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: #475569; }
         .price-value { font-weight: 700; color: #065f46; font-size: 14px; }
 
-        .btn-action-rent { display: block; text-align: center; background: var(--primary); color: white; padding: 12px; border-radius: var(--radius-md); text-decoration: none; font-weight: 700; font-size: 15px; }
+        .btn-action-rent { display: block; text-align: center; background: var(--primary); color: white; padding: 12px; border-radius: var(--radius-md); text-decoration: none; font-weight: 700; font-size: 15px; transition: background 0.2s; }
         .btn-action-rent:hover { background: var(--primary-hover); }
     </style>
 </head>
@@ -83,7 +83,6 @@
 </div>
 
 <script>
-// جلب البيانات مع تخطي الذاكرة المؤقتة لضمان عرض السيارات الجديدة فوراً
 fetch('cars_status.json?v=' + Date.now())
     .then(response => response.json())
     .then(cars => {
@@ -95,11 +94,16 @@ fetch('cars_status.json?v=' + Date.now())
             const statusClass = isAvailable ? 'status-available' : 'status-rented';
             const statusText = isAvailable ? '🟢 متاحة حالياً' : '🔴 مؤجرة حالياً';
             
+            // تجهيز نص الرسالة التلقائي للواتساب باحترافية
+            const companyNumber = "963944532131"; // 👈 ضع رقم شركتك هنا بدون أصفار أو علامة زائد
+            const messageText = `مرحباً Treble M Motors، أود الاستفسار عن حجز سيارة: (${car.name}) موديل (${car.model})، ذات اللون (${car.color}) المتاحة في موقعكم الإلكتروني.`;
+            const whatsappUrl = `https://wa.me/${companyNumber}?text=${encodeURIComponent(messageText)}`;
+            
             const carHtml = `
                 <div class="car-card" data-category="${car.category}">
                     <div class="car-image-container">
                         <span class="status-tag ${statusClass}">${statusText}</span>
-                        <img src="${car.image || 'images/default.jpg'}" onerror="this.src='images/default.jpg';" alt="${car.name}">
+                        <img src="${car.image || 'default.jpg'}" onerror="this.src='default.jpg';" alt="${car.name}">
                     </div>
                     <div class="car-content">
                         <div>
@@ -114,12 +118,11 @@ fetch('cars_status.json?v=' + Date.now())
                                 <div class="price-row">
                                     <span>إيجار يومي:</span>
                                     <span class="price-value">$${car.daily_price}</span>
-                                }
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <a href="https://wa.me/9639XXXXXXXX?text=مرحباً%20Treble%20M%20Motors،%20أود%20الاستفسار%20عن%20حجز%20سيارة%20${encodeURIComponent(car.name)}" target="_blank" class="btn-action-rent">📱 استفسر واحجز عبر واتساب</a>
+                            <a href="${whatsappUrl}" target="_blank" class="btn-action-rent">📱 استفسر واحجز عبر واتساب</a>
                         </div>
                     </div>
                 </div>
