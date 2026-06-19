@@ -62,7 +62,7 @@
 <body>
 
 <div class="navbar">
-    <h1>MMM Motors</h1>
+    <h1>Treble M Motors</h1>
     <p>اختر سيارتك المفضلة وانطلق برحلتك بكل راحة وأمان</p>
 </div>
 
@@ -79,56 +79,56 @@
     </div>
 
     <div class="showcase-grid" id="carsGrid">
-        <!-- سيتم توليد كروت السيارات هنا تلقائياً عبر الجافا سكريبت من الملف المرفوع -->
-    </div>
+        </div>
 </div>
 
 <script>
-// جلب بيانات السيارات وحالتها تلقائياً من الملف المحدث
-            fetch('cars_status.json?v=' + Date.now())
-        .then(response => response.json())
-        .then(cars => {
-            const grid = document.getElementById('carsGrid');
-            grid.innerHTML = '';
+// جلب البيانات مع تخطي الذاكرة المؤقتة لضمان عرض السيارات الجديدة فوراً
+fetch('cars_status.json?v=' + Date.now())
+    .then(response => response.json())
+    .then(cars => {
+        const grid = document.getElementById('carsGrid');
+        grid.innerHTML = '';
+        
+        cars.forEach(car => {
+            const isAvailable = car.status === 'متاحة' || car.status === 'متاح';
+            const statusClass = isAvailable ? 'status-available' : 'status-rented';
+            const statusText = isAvailable ? '🟢 متاحة حالياً' : '🔴 مؤجرة حالياً';
             
-            cars.forEach(car => {
-                const isAvailable = car.status === 'متاحة' || car.status === 'متاح';
-                const statusClass = isAvailable ? 'status-available' : 'status-rented';
-                const statusText = isAvailable ? '🟢 متاحة حالياً' : '🔴 مؤجرة حالياً';
-                
-                const carHtml = `
-                    <div class="car-card" data-category="${car.category}">
-                        <div class="car-image-container">
-                            <span class="status-tag ${statusClass}">${statusText}</span>
-                            <img src="${car.image || 'images/default.jpg'}" alt="${car.name}">
+            const carHtml = `
+                <div class="car-card" data-category="${car.category}">
+                    <div class="car-image-container">
+                        <span class="status-tag ${statusClass}">${statusText}</span>
+                        <img src="${car.image || 'images/default.jpg'}" onerror="this.src='images/default.jpg';" alt="${car.name}">
+                    </div>
+                    <div class="car-content">
+                        <div>
+                            <h2 class="car-name">${car.name}</h2>
+                            <div class="car-meta">
+                                <span>🗓️ الموديل: ${car.model}</span> | <span>🎨 اللون: ${car.color}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <span class="cat-badge">${car.category}</span>
+                            </div>
+                            <div class="price-wrapper">
+                                <div class="price-row">
+                                    <span>إيجار يومي:</span>
+                                    <span class="price-value">$${car.daily_price}</span>
+                                }
+                                </div>
+                            </div>
                         </div>
-                        <div class="car-content">
-                            <div>
-                                <h2 class="car-name">${car.name}</h2>
-                                <div class="car-meta">
-                                    <span>🗓️ الموديل: ${car.model}</span> | <span>🎨 اللون: ${car.color}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <span class="cat-badge">${car.category}</span>
-                                </div>
-                                <div class="price-wrapper">
-                                    <div class="price-row">
-                                        <span>إيجار يومي:</span>
-                                        <span class="price-value">$${car.daily_price}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <a href="https://wa.me/9639XXXXXXXX?text=مرحباً%20MMM%20Motors،%20أود%20الاستفسار%20عن%20حجز%20سيارة%20${encodeURIComponent(car.name)}" target="_blank" class="btn-action-rent">📱 استفسر واحجز عبر واتساب</a>
-                            </div>
+                        <div>
+                            <a href="https://wa.me/9639XXXXXXXX?text=مرحباً%20Treble%20M%20Motors،%20أود%20الاستفسار%20عن%20حجز%20سيارة%20${encodeURIComponent(car.name)}" target="_blank" class="btn-action-rent">📱 استفسر واحجز عبر واتساب</a>
                         </div>
                     </div>
-                `;
-                grid.innerHTML += carHtml;
-            });
-        }).catch(err => {
-            document.getElementById('carsGrid').innerHTML = '<p style="text-align:center; width:100%;">جاري تحميل أسطول السيارات الفاخر...</p>';
+                </div>
+            `;
+            grid.innerHTML += carHtml;
         });
+    }).catch(err => {
+        document.getElementById('carsGrid').innerHTML = '<p style="text-align:center; width:100%;">جاري تحميل أسطول السيارات الفاخر...</p>';
+    });
 
 function filterCars(category, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
