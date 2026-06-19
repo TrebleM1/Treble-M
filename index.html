@@ -96,7 +96,7 @@ fetch('cars_status.json?v=' + Date.now())
             const statusClass = isAvailable ? 'status-available' : 'status-rented';
             const statusText = isAvailable ? '🟢 متاحة حالياً' : '🔴 مؤجرة حالياً';
             
-            const companyNumber = "9639XXXXXXXX"; // 👈 ضع رقم شركتك الحقيقي هنا
+            const companyNumber = "963944532131"; // 👈 ضع رقم شركتك الحقيقي هنا
             const messageText = `مرحباً Treble M Motors، أود الاستفسار عن حجز سيارة: (${car.name}) موديل (${car.model})، ذات اللون (${car.color}) المتاحة في موقعكم الإلكتروني.`;
             const whatsappUrl = `https://wa.me/${companyNumber}?text=${encodeURIComponent(messageText)}`;
             
